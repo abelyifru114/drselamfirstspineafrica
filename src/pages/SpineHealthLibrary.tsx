@@ -5,85 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
 import chiroTreatment from "@/assets/chiro-treatment.jpg";
 import postureEducation from "@/assets/posture-education.jpg";
 import spineAnatomy from "@/assets/spine-anatomy.jpg";
 import rehabilitation from "@/assets/rehabilitation.jpg";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
-  }),
-};
-
 const articles = [
-  {
-    slug: "causes-of-back-pain",
-    title: "Causes of Back Pain",
-    excerpt: "Understanding the common and less common causes of back pain to help you take action early and prevent chronic conditions.",
-    readTime: "5 min read",
-    category: "Spine Basics",
-    image: chiroTreatment,
-  },
-  {
-    slug: "fix-poor-posture",
-    title: "How to Fix Poor Posture",
-    excerpt: "A practical guide to identifying postural imbalances and correcting them with exercises and lifestyle adjustments.",
-    readTime: "7 min read",
-    category: "Posture",
-    image: postureEducation,
-  },
-  {
-    slug: "best-sleeping-positions",
-    title: "Best Sleeping Positions for Spine Health",
-    excerpt: "Learn which sleeping positions support your spine and which ones may be contributing to your morning aches.",
-    readTime: "4 min read",
-    category: "Wellness",
-    image: spineAnatomy,
-  },
-  {
-    slug: "neck-pain-phone-usage",
-    title: "Neck Pain From Phone Usage",
-    excerpt: "Tech neck is a growing epidemic. Discover how to protect your cervical spine while using smartphones and devices.",
-    readTime: "5 min read",
-    category: "Prevention",
-    image: rehabilitation,
-  },
-  {
-    slug: "exercises-healthy-spine",
-    title: "Exercises for a Healthy Spine",
-    excerpt: "A curated set of safe, effective exercises recommended by Dr. Selam to strengthen your back and improve flexibility.",
-    readTime: "8 min read",
-    category: "Exercise",
-    image: chiroTreatment,
-  },
-  {
-    slug: "sciatica-treatment",
-    title: "Sciatica Treatment Options",
-    excerpt: "From conservative chiropractic care to rehabilitation therapy — everything you need to know about treating sciatica.",
-    readTime: "6 min read",
-    category: "Conditions",
-    image: postureEducation,
-  },
-  {
-    slug: "office-worker-spine-health",
-    title: "Spinal Health for Office Workers",
-    excerpt: "If you spend 8+ hours at a desk, this guide is essential. Learn ergonomic strategies to protect your spine at work.",
-    readTime: "7 min read",
-    category: "Workplace",
-    image: spineAnatomy,
-  },
-  {
-    slug: "prevent-chronic-back-pain",
-    title: "How to Prevent Chronic Back Pain",
-    excerpt: "Prevention is always better than cure. Dr. Selam shares her top evidence-based strategies for avoiding long-term back pain.",
-    readTime: "6 min read",
-    category: "Prevention",
-    image: rehabilitation,
-  },
+  { slug: "causes-of-back-pain", title: "Causes of Back Pain", excerpt: "Understanding the common and less common causes of back pain to help you take action early and prevent chronic conditions.", readTime: "5 min read", category: "Spine Basics", image: chiroTreatment },
+  { slug: "fix-poor-posture", title: "How to Fix Poor Posture", excerpt: "A practical guide to identifying postural imbalances and correcting them with exercises and lifestyle adjustments.", readTime: "7 min read", category: "Posture", image: postureEducation },
+  { slug: "best-sleeping-positions", title: "Best Sleeping Positions for Spine Health", excerpt: "Learn which sleeping positions support your spine and which ones may be contributing to your morning aches.", readTime: "4 min read", category: "Wellness", image: spineAnatomy },
+  { slug: "neck-pain-phone-usage", title: "Neck Pain From Phone Usage", excerpt: "Tech neck is a growing epidemic. Discover how to protect your cervical spine while using smartphones and devices.", readTime: "5 min read", category: "Prevention", image: rehabilitation },
+  { slug: "exercises-healthy-spine", title: "Exercises for a Healthy Spine", excerpt: "A curated set of safe, effective exercises recommended by Dr. Selam to strengthen your back and improve flexibility.", readTime: "8 min read", category: "Exercise", image: chiroTreatment },
+  { slug: "sciatica-treatment", title: "Sciatica Treatment Options", excerpt: "From conservative chiropractic care to rehabilitation therapy — everything you need to know about treating sciatica.", readTime: "6 min read", category: "Conditions", image: postureEducation },
+  { slug: "office-worker-spine-health", title: "Spinal Health for Office Workers", excerpt: "If you spend 8+ hours at a desk, this guide is essential. Learn ergonomic strategies to protect your spine at work.", readTime: "7 min read", category: "Workplace", image: spineAnatomy },
+  { slug: "prevent-chronic-back-pain", title: "How to Prevent Chronic Back Pain", excerpt: "Prevention is always better than cure. Dr. Selam shares her top evidence-based strategies for avoiding long-term back pain.", readTime: "6 min read", category: "Prevention", image: rehabilitation },
 ];
 
 const categories = ["All Topics", "Spine Basics", "Posture", "Wellness", "Prevention", "Exercise", "Conditions", "Workplace"];
@@ -120,7 +56,7 @@ export default function SpineHealthLibrary() {
 
       {/* Categories */}
       <section className="bg-card border-b border-border sticky top-[72px] z-30">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex gap-2 overflow-x-auto">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -136,20 +72,20 @@ export default function SpineHealthLibrary() {
       <section className="section-padding bg-background">
         <div className="container-max">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="font-serif text-2xl font-bold text-foreground">
-              {articles.length} Articles
-            </h2>
+            <h2 className="font-serif text-2xl font-bold text-foreground">{articles.length} Articles</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {articles.map((article, i) => (
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            {articles.map((article) => (
               <motion.div
                 key={article.slug}
                 className="bg-card rounded-2xl overflow-hidden card-hover group border border-border"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i * 0.05}
+                variants={staggerItem}
               >
                 <div className="relative overflow-hidden h-44">
                   <img
@@ -169,16 +105,14 @@ export default function SpineHealthLibrary() {
                   <h3 className="font-serif font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {article.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
-                    {article.excerpt}
-                  </p>
+                  <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{article.excerpt}</p>
                   <button className="text-sm text-primary font-semibold flex items-center gap-1 hover:gap-2 transition-all">
                     Read Article <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
