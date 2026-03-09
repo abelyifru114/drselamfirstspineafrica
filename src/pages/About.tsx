@@ -4,19 +4,11 @@ import { Award, GraduationCap, Users, Globe, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { fadeUp, fadeUpDelay, staggerContainer, staggerItem } from "@/lib/animations";
 import drSelamHero from "@/assets/dr-selam-hero.jpg";
 import clinicInterior from "@/assets/clinic-interior.jpg";
 import postureEducation from "@/assets/posture-education.jpg";
 import speakingConference from "@/assets/speaking-conference.jpg";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
-  }),
-};
 
 const milestones = [
   { year: "2005", event: "Graduated with distinction in Chiropractic Sciences from international institution" },
@@ -101,10 +93,10 @@ export default function About() {
               </div>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              variants={fadeUpDelay(0.2)}
             >
               <img
                 src={drSelamHero}
@@ -130,16 +122,18 @@ export default function About() {
               Education & Credentials
             </h2>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {credentials.map((c, i) => (
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            {credentials.map((c) => (
               <motion.div
                 key={c.title}
                 className="bg-card rounded-2xl p-6 text-center card-hover"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i * 0.1}
+                variants={staggerItem}
               >
                 <div className="w-14 h-14 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <c.icon className="w-7 h-7 text-primary" />
@@ -148,7 +142,7 @@ export default function About() {
                 <p className="text-sm text-muted-foreground">{c.subtitle}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -158,10 +152,10 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               className="relative"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              variants={fadeUp}
             >
               <img
                 src={clinicInterior}
@@ -173,7 +167,7 @@ export default function About() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={fadeUp}
+              variants={fadeUpDelay(0.15)}
             >
               <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
                 Building a Healthcare Movement
@@ -224,8 +218,7 @@ export default function About() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={i * 0.1}
+                  variants={fadeUpDelay(i * 0.08)}
                 >
                   <div className={`flex-1 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
                     <div className="bg-card rounded-xl p-5 shadow-card border border-border">
@@ -273,10 +266,10 @@ export default function About() {
               </Button>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              variants={fadeUpDelay(0.2)}
             >
               <img
                 src={speakingConference}
