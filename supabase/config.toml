@@ -1,1 +1,4 @@
 project_id = "kbjbnprzhzzpeqnvxjwy"
+
+[functions.save-appointment]
+verify_jwt = false
