@@ -190,9 +190,21 @@ export default function Contact() {
                           className="bg-background resize-none"
                         />
                       </div>
-                      <Button type="submit" size="lg" className="w-full gap-2">
-                        <Send className="w-4 h-4" />
-                        Send Appointment Request
+                      {error && (
+                        <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3">{error}</p>
+                      )}
+                      <Button type="submit" size="lg" className="w-full gap-2" disabled={loading}>
+                        {loading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Sending…
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4" />
+                            Send Appointment Request
+                          </>
+                        )}
                       </Button>
                     </form>
                   </>
